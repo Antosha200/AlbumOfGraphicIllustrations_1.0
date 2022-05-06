@@ -1,5 +1,8 @@
 package gui;
 
+import View.MainController;
+import View.frames.mainFrame.MainFrame;
+
 import javax.swing.*;
 
 public class App {
@@ -14,6 +17,6 @@ public class App {
             e.printStackTrace();
         }
 
-        new MainFrame();
+        new MainController();
     }
 }

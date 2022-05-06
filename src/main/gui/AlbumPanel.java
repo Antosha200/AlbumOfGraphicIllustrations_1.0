@@ -1,7 +1,6 @@
 package gui;
 
-import View.frames.mainFrame.MainFrameThread;
-import View.frames.splashFrame.SplashFrameThread;
+import View.frames.mainFrame.MainFrame;
 import model.Album;
 import model.Photo;
 import persistence.JsonReader;
@@ -12,11 +11,9 @@ import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.*;
 
-public class MainFrame extends JFrame {
+public class AlbumPanel extends JPanel {
 
     // Main album
     private Album album = new Album();
@@ -33,58 +30,35 @@ public class MainFrame extends JFrame {
     //private BrowsePanel browsePanel = new BrowsePanel();
     private PhotoFileChooser photoFileChooser = new PhotoFileChooser();
 
+    private MainFrame frame;
+
     /**
      * MODIFIES: this
      * EFFECTS: Create and display the main window.
      */
-    public MainFrame() {
+    public AlbumPanel(MainFrame frame) {
 
+        this.frame = frame;
         // Initialize Json parts
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-        getContentPane()
-                .add(new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(
+        add(new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(
                                 ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED), photoPanel),
                         BorderLayout.CENTER);
 
-        JFrame frame = new JFrame();
-///
-        SplashFrameThread splashFrameThread = new SplashFrameThread();
-        MainFrameThread mainFrameThread = new MainFrameThread();
-        splashFrameThread.start();
-        mainFrameThread.start();
-        while (!splashFrameThread.isStartButtonClicked())
-            Thread.yield();
-        splashFrameThread.interrupt();
-        while (mainFrameThread.getState() != Thread.State.WAITING)
-            Thread.yield();
-        synchronized (mainFrameThread) {
-            mainFrameThread.notify();
-        }
-///
-        addWindowListener(new WindowAdapter() {
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                windowCloseMethod(frame);
-            }
-
-            @Override
-            public void windowOpened(WindowEvent e) {
-                windowOpenMethod(frame);
-            }
-        });
-
-        setTitle("Album of graphic illustrations");
-
-        populateAlbum();
-
-        setSize(800, 600);
-        setVisible(true);
+//        addWindowListener(new WindowAdapter() {
+//
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//                windowCloseMethod(frame);
+//            }
+//
+//            @Override
+//            public void windowOpened(WindowEvent e) {
+//                windowOpenMethod(frame);
+//            }
+//        });
     }
 
     /**
@@ -105,10 +79,10 @@ public class MainFrame extends JFrame {
         if (result == JOptionPane.OK_OPTION) {
             photoPanel.saveMethod();
             setVisible(false);
-            dispose();
+            frame.dispose();
         } else if (result == JOptionPane.NO_OPTION) {
             setVisible(false);
-            dispose();
+            frame.dispose();
         }
     }
 
@@ -252,9 +226,9 @@ public class MainFrame extends JFrame {
                 albumJson = jsonReader.read();
                 for (Photo photo : albumJson) {
                     photo.loadPhoto();
-                    //System.out.print("There are " + albumJson.sizeAlbum() + " photos in JSON\n");
+                    System.out.print("There are " + albumJson.sizeAlbum() + " photos in JSON\n");
                     album.addPhoto(photo);
-                    //System.out.print("There are " + album.sizeAlbum() + " photos\n");
+                    System.out.print("There are " + album.sizeAlbum() + " photos\n");
                 }
                 System.out.println("Loaded from" + JSON_STORE);
             } catch (IOException exception) {
