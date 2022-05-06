@@ -309,7 +309,7 @@ public class MainFrame extends JFrame {
          * EFFECTS: Create a new button that displays the previous photo.
          */
         private JButton getBtnPrev(Album album) {
-            JButton btnPrev = new JButton("Last photo");
+            JButton btnPrev = new JButton("Previous photo");
             btnPrev.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -354,7 +354,7 @@ public class MainFrame extends JFrame {
          * EFFECTS: Create a new button that removes a photo.
          */
         private JButton getBtnRemove() {
-            JButton btnRemove = new JButton("Wipe photo");
+            JButton btnRemove = new JButton("Delete photo");
             btnRemove.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
