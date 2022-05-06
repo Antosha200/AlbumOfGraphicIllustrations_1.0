@@ -11,6 +11,8 @@ import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 
 public class AlbumPanel extends JPanel {
@@ -47,18 +49,18 @@ public class AlbumPanel extends JPanel {
                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED), photoPanel),
                         BorderLayout.CENTER);
 
-//        addWindowListener(new WindowAdapter() {
-//
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                windowCloseMethod(frame);
-//            }
-//
-//            @Override
-//            public void windowOpened(WindowEvent e) {
-//                windowOpenMethod(frame);
-//            }
-//        });
+        frame.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                windowCloseMethod(frame);
+            }
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+                windowOpenMethod(frame);
+            }
+        });
     }
 
     /**
@@ -165,18 +167,19 @@ public class AlbumPanel extends JPanel {
             JButton btnSave = getBtnSave();
             JButton btnLoad = getBtnLoad();
 
-            // Add the infoPanel label
+            //Add the infoPanel label
             infoPanel.add(infoLabel);
 
-            // Add the components to the panel
+            //Add the components to the panel
             addComponents(btnRemove, btnAdd, btnNext, btnPrev, btnSize, btnSave, btnLoad);
+
 
             // Center everything in the infoPanel
             for (Component c : infoPanel.getComponents()) {
                 ((JComponent) c).setAlignmentX(Component.CENTER_ALIGNMENT);
                 ((JComponent) c).setAlignmentY(Component.CENTER_ALIGNMENT);
             }
-            infoPanel.setPreferredSize(new Dimension(150, 100));
+            infoPanel.setPreferredSize(new Dimension(150, 200));
             infoPanel.setBackground(Color.white);
             add(infoPanel, BorderLayout.WEST);
         }
@@ -273,7 +276,7 @@ public class AlbumPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     updateSize(album);
-                    //System.out.print("There are " + album.sizeAlbum());
+                    System.out.print("There are " + album.sizeAlbum());
                 }
             });
             return btnSize;

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+
 /**
  * {@link MainFrame} is an extension of {@link JFrame} that adds panels and menu bar on the frame.
  * Used as the main window of the application.
@@ -18,13 +19,9 @@ import java.awt.event.ComponentEvent;
  */
 public class MainFrame extends JFrame {
 
-    private int solutionMethod = 0;
-
     private final MainFramePanel mainFramePanel;
 
     private AlbumPanel albumFrame;
-
-    private AlbumPanel.PhotoPanel photoPanel;
 
     /**
      * Creates frame with menu bar and {@link MainFramePanel}.
@@ -32,22 +29,17 @@ public class MainFrame extends JFrame {
      */
     public MainFrame() {
         setTitle("Album of graphic illustrations");
-        setSize(1200,800);
+        this.setSize(1200,800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         JPanel panel = new JPanel(new BorderLayout());
         mainFramePanel = new MainFramePanel(this);
         albumFrame = new AlbumPanel(this);
-
-
-
-
-        panel.add(albumFrame, BorderLayout.CENTER);
-        panel.add(mainFramePanel, BorderLayout.NORTH);
+        panel.add(albumFrame);
+        //panel.add(mainFramePanel, BorderLayout.NORTH);
         add(panel, BorderLayout.WEST);
         setJMenuBar(new MainFrameMenuBar(this));
-        mainFramePanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 0));
-        pack();
+        mainFramePanel.setBorder(BorderFactory.createEmptyBorder(3, 10, 10, 10));
         setLocationRelativeTo(null);
         addComponentListener(new ComponentAdapter() {
             @Override

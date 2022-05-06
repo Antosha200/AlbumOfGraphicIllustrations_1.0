@@ -1,11 +1,10 @@
 package gui;
 
 import View.MainController;
-import View.frames.mainFrame.MainFrame;
 
 import javax.swing.*;
 
-public class App {
+public class Main {
     /**
      * Runs the photo album App
      */
