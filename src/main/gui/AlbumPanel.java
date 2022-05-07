@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.util.ArrayList;
 
 public class AlbumPanel extends JPanel {
 
@@ -144,12 +145,14 @@ public class AlbumPanel extends JPanel {
             JButton btnSize = getBtnSize(album);
             JButton btnSave = getBtnSave();
             JButton btnLoad = getBtnLoad();
+            JButton btnDesc = getBtnDescription();
+            JButton btnShow = getBtnShowAllPhoto();
 
             //Add the infoPanel label
             infoPanel.add(infoLabel);
 
             //Add the components to the panel
-            addComponents(btnRemove, btnAdd, btnNext, btnPrev, btnSize, btnSave, btnLoad);
+            addComponents(btnRemove, btnAdd, btnNext, btnPrev, btnSize, btnSave, btnLoad, btnDesc, btnShow);
 
 
             // Center everything in the infoPanel
@@ -169,7 +172,7 @@ public class AlbumPanel extends JPanel {
         private void addComponents(JButton btnRemove, JButton btnAdd,
                                    JButton btnNext, JButton btnPrev,
                                    JButton btnSize, JButton btnSave,
-                                   JButton btnLoad) {
+                                   JButton btnLoad, JButton btnDesc, JButton btnShow) {
 
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
@@ -181,8 +184,37 @@ public class AlbumPanel extends JPanel {
             infoPanel.add(btnSize);
             infoPanel.add(btnSave);
             infoPanel.add(btnLoad);
+            infoPanel.add(btnDesc);
+            infoPanel.add(btnShow);
         }
 
+        private JButton getBtnShowAllPhoto(){
+            JButton btnShowAllPhoto = new JButton("Show full album");
+            btnShowAllPhoto.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ArrayList <Photo> photos = album.getPhotos();
+                    JFrame frame = new JFrame("Album");
+                    JPanel panel = new JPanel();
+                    frame.setVisible(true);
+                    frame.setSize(1200,300);
+                    frame.setResizable(false);
+                    for (int i = 0; i<photos.size(); i++){
+                        if(photos.get(i)!= null){
+                            System.out.println("PHOTO" + i);
+                            Photo photo = photos.get(i);
+                            panel.add((new JLabel(new ImageIcon(photo.getImage().getScaledInstance(200,200,Image.SCALE_SMOOTH)))));
+                        }
+                    }
+                    frame.add(panel);
+                    JScrollPane scrollPane = new JScrollPane(panel);
+                    frame.add(scrollPane);
+                }
+            });
+
+
+            return btnShowAllPhoto;
+        }
         /**
          * EFFECTS: Create a new button that loads a saved album.
          */
@@ -212,6 +244,29 @@ public class AlbumPanel extends JPanel {
             } catch (IOException exception) {
                 //
             }
+        }
+
+        private JButton getBtnDescription(){
+            JButton button = new JButton("Add Description");
+
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFrame frame = new JFrame("Photo Description");
+                    JPanel panel = new JPanel();
+                    frame.setVisible(true);
+                    JButton add = new JButton("Add");
+                    JButton cancel = new JButton("Cancel");
+                    JTextField textField = new JTextField(30);
+                    panel.add(textField);
+                    panel.add(add);
+                    panel.add(cancel);
+                    frame.add(panel);
+                    frame.setLocation(100,250);
+                    frame.pack();
+                }
+            });
+            return button;
         }
 
         /**
