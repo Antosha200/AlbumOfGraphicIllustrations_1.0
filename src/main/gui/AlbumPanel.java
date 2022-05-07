@@ -207,13 +207,10 @@ public class AlbumPanel extends JPanel {
                 albumJson = jsonReader.read();
                 for (Photo photo : albumJson) {
                     photo.loadPhoto();
-                    //System.out.print("There are " + albumJson.sizeAlbum() + " photos in JSON\n");
                     album.addPhoto(photo);
-                    //System.out.print("There are " + album.sizeAlbum() + " photos\n");
                 }
-                //System.out.println("Loaded from" + JSON_STORE);
             } catch (IOException exception) {
-                //System.out.println("Unable to read from file: " + JSON_STORE);
+                //
             }
         }
 
@@ -239,7 +236,6 @@ public class AlbumPanel extends JPanel {
                 jsonWriter.open();
                 jsonWriter.write(album);
                 jsonWriter.close();
-                //System.out.println("Saved album to" + JSON_STORE);
             } catch (FileNotFoundException exception) {
                 //System.out.println("Unable to write to file: " + JSON_STORE);
             }
@@ -254,7 +250,6 @@ public class AlbumPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     updateSize(album);
-                    System.out.print("There are " + album.sizeAlbum());
                 }
             });
             return btnSize;
@@ -336,10 +331,8 @@ public class AlbumPanel extends JPanel {
             // Add the image
             imagePanel.removeAll();
             if (photo != null) {
-                //System.out.print("ФОТО НЕ ПУСТОЕ");
                 imagePanel.add(new JLabel(new ImageIcon(photo.getImage())));
             } else {
-                //System.out.print("ФОТО ПУСТОЕ НО МЕТОД РАБОТАЕТ");
                 imagePanel.add(new JLabel("No photo selected."));
             }
 

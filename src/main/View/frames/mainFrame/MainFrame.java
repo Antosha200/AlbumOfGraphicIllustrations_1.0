@@ -39,10 +39,8 @@ public class MainFrame extends JFrame {
         albumFrame = new AlbumPanel(this);
         panel.add(albumFrame, BorderLayout.NORTH);
         panel.add(mainFramePanel, BorderLayout.WEST);
-
         add(panel, BorderLayout.WEST);
         setJMenuBar(new MainFrameMenuBar(this));
-
         setLocationRelativeTo(null);
         addComponentListener(new ComponentAdapter() {
             @Override
