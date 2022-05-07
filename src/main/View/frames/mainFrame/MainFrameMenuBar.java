@@ -12,7 +12,7 @@ class MainFrameMenuBar extends JMenuBar {
 
     protected MainFrameMenuBar(MainFrame frame) {
         this.frame = frame;
-        add(createFileMenu());
+        //add(createFileMenu());
         add(createHelpMenu());
         add(createAboutMenu());
     }

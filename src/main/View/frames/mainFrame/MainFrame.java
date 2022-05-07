@@ -2,8 +2,6 @@ package View.frames.mainFrame;
 
 import View.frames.mainFrame.panels.MainFramePanel;
 import gui.AlbumPanel;
-import model.Album;
-import model.Photo;
 
 import javax.swing.*;
 import java.awt.*;

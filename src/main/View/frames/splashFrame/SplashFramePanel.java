@@ -50,6 +50,8 @@ class SplashFramePanel extends JPanel {
         panel.add(createBodyLabel(), constraints);
         constraints.gridwidth = 1;
         constraints.gridy = 2;
+        panel.add(createImageLabel(), constraints);
+        constraints.gridx = 1;
         panel.add(createInfoLabel(), constraints);
         return panel;
     }
