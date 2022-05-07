@@ -33,9 +33,9 @@ public class Photo implements Writable {
         return name;
     }
 
-//    public Album getAlbum() {
-//        return album;
-//    }
+    public Album getAlbum() {
+        return album;
+    }
 
     @Override
     public boolean equals(Object o) {

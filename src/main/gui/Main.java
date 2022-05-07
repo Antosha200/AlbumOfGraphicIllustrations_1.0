@@ -1,6 +1,7 @@
 package gui;
 
 import View.MainController;
+import View.frames.mainFrame.MainFrame;
 
 import javax.swing.*;
 

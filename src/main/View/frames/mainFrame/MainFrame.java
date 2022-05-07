@@ -2,6 +2,8 @@ package View.frames.mainFrame;
 
 import View.frames.mainFrame.panels.MainFramePanel;
 import gui.AlbumPanel;
+import model.Album;
+import model.Photo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,11 +37,12 @@ public class MainFrame extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         mainFramePanel = new MainFramePanel(this);
         albumFrame = new AlbumPanel(this);
-        panel.add(albumFrame);
-        //panel.add(mainFramePanel, BorderLayout.NORTH);
+        panel.add(albumFrame, BorderLayout.NORTH);
+        panel.add(mainFramePanel, BorderLayout.WEST);
+
         add(panel, BorderLayout.WEST);
         setJMenuBar(new MainFrameMenuBar(this));
-        mainFramePanel.setBorder(BorderFactory.createEmptyBorder(3, 10, 10, 10));
+
         setLocationRelativeTo(null);
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -48,4 +51,5 @@ public class MainFrame extends JFrame {
             }
         });
     }
+
 }

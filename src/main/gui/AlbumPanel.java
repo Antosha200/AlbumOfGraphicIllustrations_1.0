@@ -44,7 +44,7 @@ public class AlbumPanel extends JPanel {
         // Initialize Json parts
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        add(new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(
+        frame.add(new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(
                                 ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED), photoPanel),
                         BorderLayout.CENTER);
@@ -85,28 +85,6 @@ public class AlbumPanel extends JPanel {
         } else if (result == JOptionPane.NO_OPTION) {
             setVisible(false);
             frame.dispose();
-        }
-    }
-
-    /**
-     * MODIFIES: this
-     * EFFECTS: Add some test data (default photos) to the album.
-     */
-    private void populateAlbum() {
-
-        try {
-            Photo apple = new Photo("apple");
-            Photo banana = new Photo("banana2553");
-            Photo cherry = new Photo("cherry365");
-            apple.loadPhoto();
-            banana.loadPhoto();
-            cherry.loadPhoto();
-            album.addPhoto(apple);
-            album.addPhoto(banana);
-            album.addPhoto(cherry);
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -229,13 +207,13 @@ public class AlbumPanel extends JPanel {
                 albumJson = jsonReader.read();
                 for (Photo photo : albumJson) {
                     photo.loadPhoto();
-                    System.out.print("There are " + albumJson.sizeAlbum() + " photos in JSON\n");
+                    //System.out.print("There are " + albumJson.sizeAlbum() + " photos in JSON\n");
                     album.addPhoto(photo);
-                    System.out.print("There are " + album.sizeAlbum() + " photos\n");
+                    //System.out.print("There are " + album.sizeAlbum() + " photos\n");
                 }
-                System.out.println("Loaded from" + JSON_STORE);
+                //System.out.println("Loaded from" + JSON_STORE);
             } catch (IOException exception) {
-                System.out.println("Unable to read from file: " + JSON_STORE);
+                //System.out.println("Unable to read from file: " + JSON_STORE);
             }
         }
 
@@ -261,9 +239,9 @@ public class AlbumPanel extends JPanel {
                 jsonWriter.open();
                 jsonWriter.write(album);
                 jsonWriter.close();
-                System.out.println("Saved album to" + JSON_STORE);
+                //System.out.println("Saved album to" + JSON_STORE);
             } catch (FileNotFoundException exception) {
-                System.out.println("Unable to write to file: " + JSON_STORE);
+                //System.out.println("Unable to write to file: " + JSON_STORE);
             }
         }
 
@@ -358,8 +336,10 @@ public class AlbumPanel extends JPanel {
             // Add the image
             imagePanel.removeAll();
             if (photo != null) {
+                //System.out.print("ФОТО НЕ ПУСТОЕ");
                 imagePanel.add(new JLabel(new ImageIcon(photo.getImage())));
             } else {
+                //System.out.print("ФОТО ПУСТОЕ НО МЕТОД РАБОТАЕТ");
                 imagePanel.add(new JLabel("No photo selected."));
             }
 
