@@ -1,4 +1,4 @@
-package View.frames.mainFrame;
+package gui.view.frames.mainFrame;
 
 /**
  * {@link MainFrameThread} is an extension of {@link Thread}

@@ -1,8 +1,8 @@
-package View.frames.mainFrame;
+package gui.view.frames.mainFrame;
 
-import View.frames.aboutAuthorDialog.AboutAuthorDialog;
-import View.frames.aboutProgramDialog.AboutProgramDialog;
-import View.frames.inputFileHelpFrame.HelpFrame;
+import gui.view.frames.aboutAuthorDialog.AboutAuthorDialog;
+import gui.view.frames.aboutProgramDialog.AboutProgramDialog;
+import gui.view.frames.inputFileHelpFrame.HelpFrame;
 
 import javax.swing.*;
 

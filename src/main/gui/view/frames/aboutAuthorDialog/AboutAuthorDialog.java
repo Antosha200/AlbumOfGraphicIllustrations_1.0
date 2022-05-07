@@ -1,4 +1,4 @@
-package View.frames.aboutAuthorDialog;
+package gui.view.frames.aboutAuthorDialog;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package gui;
 
-import View.frames.mainFrame.MainFrame;
+import gui.view.frames.mainFrame.MainFrame;
 import model.Album;
 import model.Photo;
 import persistence.JsonReader;

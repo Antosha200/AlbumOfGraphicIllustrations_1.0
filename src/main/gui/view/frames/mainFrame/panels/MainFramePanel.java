@@ -1,6 +1,6 @@
-package View.frames.mainFrame.panels;
+package gui.view.frames.mainFrame.panels;
 
-import View.frames.mainFrame.MainFrame;
+import gui.view.frames.mainFrame.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;

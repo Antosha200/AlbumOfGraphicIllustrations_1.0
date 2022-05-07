@@ -1,4 +1,4 @@
-package View.frames.inputFileHelpFrame;
+package gui.view.frames.inputFileHelpFrame;
 
 import javax.swing.*;
 

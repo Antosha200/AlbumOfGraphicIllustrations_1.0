@@ -1,4 +1,4 @@
-package View.frames.aboutProgramDialog;
+package gui.view.frames.aboutProgramDialog;
 
 import javax.swing.*;
 import java.awt.*;
