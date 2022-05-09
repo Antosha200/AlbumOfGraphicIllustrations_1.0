@@ -15,6 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AlbumPanel extends JPanel {
 
@@ -46,9 +47,9 @@ public class AlbumPanel extends JPanel {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         frame.add(new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(
-                                ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
-                                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED), photoPanel),
-                        BorderLayout.CENTER);
+                        ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+                        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED), photoPanel),
+                BorderLayout.CENTER);
 
         frame.addWindowListener(new WindowAdapter() {
 
@@ -188,22 +189,32 @@ public class AlbumPanel extends JPanel {
             infoPanel.add(btnShow);
         }
 
-        private JButton getBtnShowAllPhoto(){
+        private JButton getBtnShowAllPhoto() {
             JButton btnShowAllPhoto = new JButton("Show full album");
             btnShowAllPhoto.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    ArrayList <Photo> photos = album.getPhotos();
+                    ArrayList<Photo> photos = album.getPhotos();
                     JFrame frame = new JFrame("Album");
                     JPanel panel = new JPanel();
                     frame.setVisible(true);
-                    frame.setSize(1200,300);
-                    frame.setResizable(false);
-                    for (int i = 0; i<photos.size(); i++){
-                        if(photos.get(i)!= null){
-                            System.out.println("PHOTO" + i);
+                    frame.setSize(1200, 300);
+                    String line = "";
+                    for (int i = 0; i < photos.size(); i++) {
+                        if (photos.get(i) != null) {
                             Photo photo = photos.get(i);
-                            panel.add((new JLabel(new ImageIcon(photo.getImage().getScaledInstance(200,200,Image.SCALE_SMOOTH)))));
+                            String fileName = ("photos/descriptions/"+ photo.getName() + ".txt");
+                            try {
+                                BufferedReader reader;
+                                reader = new BufferedReader(new FileReader(fileName));
+                                line = reader.readLine();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                            System.out.println(line);
+                            JLabel label = new JLabel(line);
+                            panel.add((new JLabel(new ImageIcon(photo.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)))));
+                            panel.add(label);
                         }
                     }
                     frame.add(panel);
@@ -215,6 +226,7 @@ public class AlbumPanel extends JPanel {
 
             return btnShowAllPhoto;
         }
+
         /**
          * EFFECTS: Create a new button that loads a saved album.
          */
@@ -246,24 +258,59 @@ public class AlbumPanel extends JPanel {
             }
         }
 
-        private JButton getBtnDescription(){
+        private JButton getBtnDescription() {
             JButton button = new JButton("Add Description");
+            JFrame frame = new JFrame("Photo Description");
+            JPanel panel = new JPanel();
+            JButton add = new JButton("Add");
+            JButton cancel = new JButton("Cancel");
+            JTextField textField = new JTextField(30);
 
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JFrame frame = new JFrame("Photo Description");
-                    JPanel panel = new JPanel();
                     frame.setVisible(true);
-                    JButton add = new JButton("Add");
-                    JButton cancel = new JButton("Cancel");
-                    JTextField textField = new JTextField(30);
                     panel.add(textField);
                     panel.add(add);
                     panel.add(cancel);
                     frame.add(panel);
-                    frame.setLocation(100,250);
+                    frame.setLocation(100, 250);
                     frame.pack();
+                }
+            });
+            cancel.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.setVisible(false);
+                }
+            });
+
+            add.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println(album.getIndex(selectedPhoto));
+
+                    if (textField.getText() == null) {
+
+                    } else {
+                        String description = textField.getText();
+                        File file = new File("photos/descriptions/" + displayedPhoto.getName() + ".txt");
+                        if (!file.exists()) {
+                            try {
+                                file.createNewFile();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                        try {
+                            PrintWriter printWriter = new PrintWriter(file);
+                            printWriter.println(description);
+                            printWriter.close();
+                        } catch (FileNotFoundException ex) {
+                            ex.printStackTrace();
+                        }
+                        frame.setVisible(false);
+                    }
                 }
             });
             return button;
