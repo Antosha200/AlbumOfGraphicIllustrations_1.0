@@ -7,26 +7,41 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Class contains methods for working with the album entity.
+ * Deleting, receiving and formatting in JSON format.
+ *
+ * @author Naumov A.M
+ * @version 1.0
+ */
 public class Album implements Writable, Iterable<Photo> {
     private final ArrayList<Photo> photos;
     private String name;
 
-    // EFFECTS: initializes each newly created Album as an empty album
+    /**
+     * Initializes each newly created Album.
+     */
     public Album() {
         photos = new ArrayList<>();
     }
 
-    // EFFECTS: returns a list of all the photos in album.
+    /**
+     * Returns a list of all the photos in album.
+     */
     public ArrayList<Photo> getPhotos() {
         return photos;
     }
 
-    // EFFECTS: add a photo to album
+    /**
+     * Adds a photo to album
+     */
     public void addPhoto(Photo photo) {
         this.photos.add(photo);
     }
 
-    // EFFECTS: remove a photo from album
+    /**
+     * Removes the photo from album
+     */
     public Boolean removePhoto(Photo photo) {
         if (photos.contains(photo)) {
             this.photos.remove(photo);
@@ -35,7 +50,9 @@ public class Album implements Writable, Iterable<Photo> {
         return false;
     }
 
-    // EFFECTS: remove all photos from album
+    /**
+     * Removes all photos from album
+     */
     public Boolean removeAll() {
         if (!photos.isEmpty()) {
             photos.clear();
@@ -44,12 +61,16 @@ public class Album implements Writable, Iterable<Photo> {
         return false;
     }
 
-    // EFFECTS: return photo index
+    /**
+     * Returns photo index
+     */
     public Integer getIndex(Photo photo) {
         return photos.indexOf(photo);
     }
 
-    // EFFECTS: return next photo index
+    /**
+     * Returns next photo index
+     */
     public Integer nextIndex(Photo photo) {
         if (photos.indexOf(photo) < getPhotos().size() - 1) {
             return photos.indexOf(photo) + 1;
@@ -58,8 +79,9 @@ public class Album implements Writable, Iterable<Photo> {
         }
     }
 
-    // REQUIRES: index cannot be negative
-    // EFFECTS: return previous photo index
+    /**
+     * Return previous photo index
+     */
     public Integer prevIndex(Photo photo) {
         if (photos.indexOf(photo) >= 1) {
             return photos.indexOf(photo) - 1;
@@ -69,23 +91,30 @@ public class Album implements Writable, Iterable<Photo> {
         }
     }
 
-    // EFFECTS: show next photo
+    /**
+     * Shows next photo
+     */
     public Photo nextPhoto(Photo photo) {
         return photos.get(nextIndex(photo));
     }
 
-    // EFFECTS: show previous photo
+    /**
+     * Shows previous photo
+     */
     public Photo prevPhoto(Photo photo) {
         return photos.get(prevIndex(photo));
     }
 
-    // EFFECTS: return number of photos in album
+    /**
+     * Returns number of photos in album
+     */
     public Integer sizeAlbum() {
         return photos.size();
     }
 
-    // REQUIRES: a photo with same name must be in album
-    // EFFECTS: return a photo by name
+    /**
+     * Returns a photo by name
+     */
     public Photo getPhotoByName(String name) {
         Photo p = new Photo(name);
         if (photos.contains(p)) {
@@ -95,6 +124,9 @@ public class Album implements Writable, Iterable<Photo> {
         }
     }
 
+    /**
+     * Returns object in JSON format
+     */
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -103,7 +135,9 @@ public class Album implements Writable, Iterable<Photo> {
         return json;
     }
 
-    // EFFECTS: returns photos in this album as a JSON array
+    /**
+     * Returns photos in album as a JSON array
+     */
     public JSONArray photosToJson() {
         JSONArray jsonArray = new JSONArray();
 

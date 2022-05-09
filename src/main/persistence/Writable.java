@@ -2,7 +2,16 @@ package persistence;
 
 import org.json.JSONObject;
 
+/**
+ * Interface Writable
+ *
+ * @author Naumov A.M
+ * @version 1.0
+ */
 public interface Writable {
-    // EFFECTS: returns this as JSON object
+
+    /**
+     * Returns this as JSON object
+     */
     JSONObject toJson();
 }

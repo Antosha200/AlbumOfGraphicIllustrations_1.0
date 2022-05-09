@@ -14,11 +14,8 @@ import java.awt.*;
  * @version 1.0
  */
 public class MainFramePanel extends JPanel {
-
-    //private EquationPanel equationPanel;
     private JScrollPane scrollPane;
     private final GridBagConstraints scrollPaneConstraints;
-
     private final MainFrame frame;
 
     /**

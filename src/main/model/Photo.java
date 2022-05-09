@@ -10,27 +10,44 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Class contains methods for working with the photo entity.
+ * Getting a name, uploading a photo, converting to JSON format, as well as redefining equals() and hashCode() methods.
+ *
+ * @author Naumov A.M
+ * @version 1.0
+ */
 public class Photo implements Writable {
     private final String name;
-
     // Information about where we keep the photos
     private static final String PICTURES_DIRECTORY = "photos";
     private static final String PHOTO_FILE_TYPE = ".jpg";
     private static final String PROJECT_DIRECTORY_PATH = System.getProperty("user.dir");
     private static final String FILE_SEPARATOR = System.getProperty("file.separator");
-
     private Album album;
-
     private BufferedImage image;
 
+    /**
+     * Initializes each newly created Photo.
+     */
     public Photo(String photoName) {
         this.name = photoName;
     }
 
+    /**
+     * Get Photo name.
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get Album Instance
+     *
+     * @return album
+     */
     public Album getAlbum() {
         return album;
     }
@@ -54,8 +71,8 @@ public class Photo implements Writable {
      */
     public void loadPhoto() throws IOException {
         image = ImageIO.read(new File(PROJECT_DIRECTORY_PATH
-                    + FILE_SEPARATOR + PICTURES_DIRECTORY
-                    + FILE_SEPARATOR + name + PHOTO_FILE_TYPE));
+                + FILE_SEPARATOR + PICTURES_DIRECTORY
+                + FILE_SEPARATOR + name + PHOTO_FILE_TYPE));
         if (image == null) {
             throw new IOException();
         }
@@ -68,8 +85,10 @@ public class Photo implements Writable {
 
     /**
      * Provide the photo image
+     *
+     * @return image
      */
-    public Image getImage()  {
+    public Image getImage() {
         return image;
     }
 

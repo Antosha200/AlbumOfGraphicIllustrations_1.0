@@ -12,18 +12,8 @@ class MainFrameMenuBar extends JMenuBar {
 
     protected MainFrameMenuBar(MainFrame frame) {
         this.frame = frame;
-        //add(createFileMenu());
         add(createHelpMenu());
         add(createAboutMenu());
-    }
-
-    private JMenu createFileMenu() {
-
-        JMenuItem exitMenuItem = new JMenuItem("Exit");
-        exitMenuItem.addActionListener(e -> System.exit(0));
-        JMenu fileMenu = new JMenu("File");
-        fileMenu.add(exitMenuItem);
-        return fileMenu;
     }
 
     private JMenu createHelpMenu() {

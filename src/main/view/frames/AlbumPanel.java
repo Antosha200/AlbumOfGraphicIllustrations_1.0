@@ -16,28 +16,25 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class contains methods for working with panels which contains
+ * displaying photo and buttons
+ *
+ * @author Naumov A.M
+ * @version 1.0
+ */
 public class AlbumPanel extends JPanel {
-
-    // Main album
     private Album album = new Album();
     private Album albumJson = new Album();
-
-    // Json parts and storing
     private static final String JSON_STORE = "./photos/workroom.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-
-    // UI components
     private PhotoPanel photoPanel = new PhotoPanel();
-
-    //private BrowsePanel browsePanel = new BrowsePanel();
     private PhotoFileChooser photoFileChooser = new PhotoFileChooser();
-
     private MainFrame frame;
 
     /**
-     * MODIFIES: this
-     * EFFECTS: Create and display the main window.
+     * Create and display the main window.
      */
     public AlbumPanel(MainFrame frame) {
 
@@ -64,7 +61,7 @@ public class AlbumPanel extends JPanel {
     }
 
     /**
-     * EFFECTS: Display a confirmation box for loading album upon starting app.
+     * Display a confirmation box for loading album upon starting app.
      */
     private void windowOpenMethod(JFrame frame) {
         int result = JOptionPane.showConfirmDialog(frame, "Do you want to load a previous album?");
@@ -74,7 +71,7 @@ public class AlbumPanel extends JPanel {
     }
 
     /**
-     * EFFECTS: Display a confirmation box for saving album upon closing app.
+     * Display a confirmation box for saving album upon closing app.
      */
     private void windowCloseMethod(JFrame frame) {
         int result = JOptionPane.showConfirmDialog(frame, "Do you want to save?");
@@ -89,7 +86,7 @@ public class AlbumPanel extends JPanel {
     }
 
     /**
-     * EFFECTS: Display an error message box for adding a photo.
+     * Display an error message box for adding a photo.
      */
     private void errorPopup(String message) {
         JOptionPane.showMessageDialog(this, message, "Error",
@@ -97,7 +94,7 @@ public class AlbumPanel extends JPanel {
     }
 
     /**
-     * EFFECTS: Display a confirmation box for removing a photo.
+     * Display a confirmation box for removing a photo.
      */
     private boolean confirmPopup(String message) {
         return JOptionPane.showConfirmDialog(this, message, "Confirm action",
@@ -105,9 +102,7 @@ public class AlbumPanel extends JPanel {
     }
 
     /**
-     * REQUIRES: Photo can be removed.
-     * MODIFIES: this
-     * EFFECTS: Cleanly removes a photo from the album.
+     * Cleanly removes a photo from the album.
      */
     public void removePhoto(Photo photo) {
         try {
@@ -121,22 +116,21 @@ public class AlbumPanel extends JPanel {
      * The panel for displaying a photo and buttons
      */
     public class PhotoPanel extends JPanel {
-
         private Photo selectedPhoto;
         private Photo displayedPhoto;
-
         private JPanel imagePanel = new JPanel();
         private JPanel infoPanel = new JPanel();
-
         private JLabel infoLabel = new JLabel();
 
+        /**
+         * Construct PhotoPanel.
+         * Adds GUI elements on panel.
+         */
         public PhotoPanel() {
             super(new BorderLayout());
-
             JScrollPane scrollPane = new JScrollPane(imagePanel);
             scrollPane.setBackground(Color.WHITE);
             add(scrollPane, BorderLayout.CENTER);
-
             JButton btnRemove = getBtnRemove();
             JButton btnAdd = getBtnAdd();
             JButton btnNext = getBtnNext(album);
@@ -160,8 +154,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * MODIFIES: this
-         * EFFECTS: Add all of the button components.
+         * Adds all the buttons components.
          */
         private void addComponents(JButton btnRemove, JButton btnAdd,
                                    JButton btnNext, JButton btnPrev,
@@ -169,8 +162,6 @@ public class AlbumPanel extends JPanel {
                                    JButton btnLoad, JButton btnDesc, JButton btnDeleteDesc, JButton btnShow) {
 
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-
-            // Add all the buttons to the side
             infoPanel.add(btnNext);
             infoPanel.add(btnPrev);
             infoPanel.add(btnAdd);
@@ -183,6 +174,9 @@ public class AlbumPanel extends JPanel {
             infoPanel.add(btnShow);
         }
 
+        /**
+         * Displaying photo gallery
+         */
         private JButton getBtnShowAllPhoto() {
             JButton btnShowAllPhoto = new JButton("Show full album");
             btnShowAllPhoto.addActionListener(new ActionListener() {
@@ -197,7 +191,7 @@ public class AlbumPanel extends JPanel {
                         String line = "";
                         if (photos.get(i) != null) {
                             Photo photo = photos.get(i);
-                            String fileName = ("photos/descriptions/"+ photo.getName() + ".txt");
+                            String fileName = ("photos/descriptions/" + photo.getName() + ".txt");
                             try {
                                 BufferedReader reader;
                                 reader = new BufferedReader(new FileReader(fileName));
@@ -218,7 +212,10 @@ public class AlbumPanel extends JPanel {
             return btnShowAllPhoto;
         }
 
-        private JButton getBtnDeleteDesc(){
+        /**
+         * Deletes caption
+         */
+        private JButton getBtnDeleteDesc() {
             JButton button = new JButton("Delete description");
             button.addActionListener(new ActionListener() {
                 @Override
@@ -233,13 +230,13 @@ public class AlbumPanel extends JPanel {
                     panel.add(yes);
                     panel.add(no);
                     frame.add(panel);
-                    frame.setSize(300,150);
+                    frame.setSize(300, 150);
                     frame.setLocationRelativeTo(null);
 
                     yes.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            File file = new File("photos/descriptions/"+ displayedPhoto.getName() + ".txt");
+                            File file = new File("photos/descriptions/" + displayedPhoto.getName() + ".txt");
                             file.delete();
                             frame.setVisible(false);
                         }
@@ -258,7 +255,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Create a new button that loads a saved album.
+         * Creates a new button that loads a saved album.
          */
         private JButton getBtnLoad() {
             JButton btnLoad = new JButton("Load album");
@@ -272,8 +269,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * MODIFIES: this
-         * EFFECTS: Loads a saved album.
+         * Loads a saved album.
          */
         private void loadMethod() {
             try {
@@ -288,6 +284,9 @@ public class AlbumPanel extends JPanel {
             }
         }
 
+        /**
+         * Adds caption to displayed photo
+         */
         private JButton getBtnDescription() {
             JButton button = new JButton("Add Description");
             JFrame frame = new JFrame("Photo Description");
@@ -346,7 +345,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Create a new button that saves the current album.
+         * Creates a new button that saves the current album.
          */
         private JButton getBtnSave() {
             JButton btnSave = new JButton("Save album");
@@ -360,7 +359,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Saves the current album.
+         * Saves the current album.
          */
         private void saveMethod() {
             try {
@@ -373,7 +372,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Create a new button that returns the album size.
+         * Creates a new button that returns the album size.
          */
         private JButton getBtnSize(Album album) {
             JButton btnSize = new JButton("Album size");
@@ -387,7 +386,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Create a new button that displays the previous photo.
+         * Creates a new button that displays the previous photo.
          */
         private JButton getBtnPrev(Album album) {
             JButton btnPrev = new JButton("Previous photo");
@@ -402,7 +401,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Create a new button that displays the next photo.
+         * Creates a new button that displays the next photo.
          */
         private JButton getBtnNext(Album album) {
             JButton btnNext = new JButton("Next photo");
@@ -417,8 +416,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * REQUIRES: Photo is valid
-         * EFFECTS: Create a new button that adds a new photo.
+         * Creates a new button that adds a new photo.
          */
         private JButton getBtnAdd() {
             JButton btnAdd = new JButton("Add photo");
@@ -432,7 +430,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Create a new button that removes a photo.
+         * Creates a new button that removes a photo.
          */
         private JButton getBtnRemove() {
             JButton btnRemove = new JButton("Delete photo");
@@ -450,29 +448,23 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * REQUIRES: Album has photos
-         * EFFECTS: Selects the current photo to be displayed
+         * Selects the current photo to be displayed
          */
         private void selectPhoto(Photo photo) {
             selectedPhoto = photo;
-
-            // Un-focus the description text area
             imagePanel.requestFocusInWindow();
-
-            // Add the image
             imagePanel.removeAll();
             if (photo != null) {
                 imagePanel.add(new JLabel(new ImageIcon(photo.getImage())));
             } else {
                 imagePanel.add(new JLabel("No photo selected."));
             }
-
             repaint();
             revalidate();
         }
 
         /**
-         * EFFECTS: Display the updated size of album on top of the buttons.
+         * Displays the updated size of album on top of the buttons.
          */
         private void updateSize(Album album) {
             infoLabel.setText("There are " + album.sizeAlbum() + " photos");
@@ -484,11 +476,13 @@ public class AlbumPanel extends JPanel {
      */
     private class PhotoFileChooser extends JFileChooser {
 
+        /**
+         * Construct PhotoFileChooser
+         */
         public PhotoFileChooser() {
             setMultiSelectionEnabled(true);
             setAcceptAllFileFilterUsed(false);
             setApproveButtonText("Add Photos");
-
             setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
@@ -507,7 +501,7 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Show the dialog to add a photo to the library
+         * Shows the dialog to add a photo to the library
          */
         public void showAddPhotoDialog() {
 
@@ -526,20 +520,15 @@ public class AlbumPanel extends JPanel {
         }
 
         /**
-         * EFFECTS: Given any JPEG image file, returns a name suitable for passing to the Photo constructor.
+         * Gives any JPEG image file, returns a name suitable for passing to the Photo constructor.
          */
         private String importPhotoFile(File file) throws IOException {
             String name = file.getName().substring(0,
                     file.getName().lastIndexOf('.'));
 
-            // If the file isn't in the photos folder with the expected
-            // filename, copy it there
             if (!file.getCanonicalPath().equals(
                     new File("photos" + System.getProperty("file.separator")
                             + name + ".jpg").getCanonicalPath())) {
-
-                // append a number that depends on the whole path, to reduce
-                // collisions
                 name += file.getCanonicalPath().hashCode() % 5000 + 5000;
                 File dest = new File("photos"
                         + System.getProperty("file.separator") + name + ".jpg");
