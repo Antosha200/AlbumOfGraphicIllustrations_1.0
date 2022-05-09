@@ -114,16 +114,6 @@ public class Album implements Writable, Iterable<Photo> {
         return jsonArray;
     }
 
-//    @Override
-//    public int hashCode() {
-//        return name.hashCode();
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Album(" + name + ")";
-//    }
-
     /**
      * Returns an iterator over elements of type {@code T}.
      *

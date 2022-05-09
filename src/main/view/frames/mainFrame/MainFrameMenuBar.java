@@ -1,8 +1,8 @@
-package gui.view.frames.mainFrame;
+package view.frames.mainFrame;
 
-import gui.view.frames.aboutAuthorDialog.AboutAuthorDialog;
-import gui.view.frames.aboutProgramDialog.AboutProgramDialog;
-import gui.view.frames.inputFileHelpFrame.HelpFrame;
+import view.frames.aboutAuthorDialog.AboutAuthorDialog;
+import view.frames.aboutProgramDialog.AboutProgramDialog;
+import view.frames.inputFileHelpFrame.HelpFrame;
 
 import javax.swing.*;
 
@@ -26,9 +26,8 @@ class MainFrameMenuBar extends JMenuBar {
         return fileMenu;
     }
 
-
     private JMenu createHelpMenu() {
-        JMenuItem inputFileHelpMenuItem = new JMenuItem("Some Help");
+        JMenuItem inputFileHelpMenuItem = new JMenuItem("Contact us");
         inputFileHelpMenuItem.addActionListener(e -> new Thread(HelpFrame::new).start());
         JMenu menu = new JMenu("Help");
         menu.add(inputFileHelpMenuItem);

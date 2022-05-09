@@ -23,8 +23,6 @@ public class Photo implements Writable {
 
     private BufferedImage image;
 
-    // REQUIRES: photoName has a non-zero length
-    // EFFECTS: name is set to photoName
     public Photo(String photoName) {
         this.name = photoName;
     }

@@ -1,7 +1,7 @@
-package gui.view.frames.mainFrame;
+package view.frames.mainFrame;
 
-import gui.view.frames.mainFrame.panels.MainFramePanel;
-import gui.AlbumPanel;
+import view.frames.mainFrame.panels.MainFramePanel;
+import view.frames.AlbumPanel;
 
 import javax.swing.*;
 import java.awt.*;

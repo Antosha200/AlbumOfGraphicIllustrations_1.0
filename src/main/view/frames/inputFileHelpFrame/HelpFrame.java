@@ -1,4 +1,4 @@
-package gui.view.frames.inputFileHelpFrame;
+package view.frames.inputFileHelpFrame;
 
 import javax.swing.*;
 
@@ -17,14 +17,16 @@ public class HelpFrame extends JFrame {
     public HelpFrame() {
         setTitle("Help");
         add(createPanel());
-        setSize(getToolkit().getScreenSize().width / 3, getToolkit().getScreenSize().height / 3);
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
     private JScrollPane createPanel() {
-        JTextArea textArea = new JTextArea("");
-        textArea.setEditable(false);
-        return new JScrollPane(textArea);
+        JTextPane textPane = new JTextPane();
+        textPane.setText("If you have any questions,\n" + "please contact the developer by e-mail:\n" +
+                "anton2-2000@mail.ru");
+        textPane.setEditable(false);
+        return new JScrollPane(textPane);
     }
 }

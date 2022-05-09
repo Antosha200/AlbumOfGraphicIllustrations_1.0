@@ -1,6 +1,6 @@
-package gui;
+package view.frames;
 
-import gui.view.frames.mainFrame.MainFrame;
+import view.frames.mainFrame.MainFrame;
 import model.Album;
 import model.Photo;
 import persistence.JsonReader;
@@ -42,7 +42,6 @@ public class AlbumPanel extends JPanel {
     public AlbumPanel(MainFrame frame) {
 
         this.frame = frame;
-        // Initialize Json parts
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         frame.add(new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(
@@ -114,7 +113,7 @@ public class AlbumPanel extends JPanel {
         try {
             album.removePhoto(photo);
         } catch (Exception e) {
-            System.out.println("Photo cannot be removed");
+            //
         }
     }
 
@@ -148,15 +147,9 @@ public class AlbumPanel extends JPanel {
             JButton btnDesc = getBtnDescription();
             JButton btnDeleteDesc = getBtnDeleteDesc();
             JButton btnShow = getBtnShowAllPhoto();
-
-            //Add the infoPanel label
             infoPanel.add(infoLabel);
-
-            //Add the components to the panel
             addComponents(btnRemove, btnAdd, btnNext, btnPrev, btnSize, btnSave, btnLoad, btnDesc, btnDeleteDesc, btnShow);
 
-
-            // Center everything in the infoPanel
             for (Component c : infoPanel.getComponents()) {
                 ((JComponent) c).setAlignmentX(Component.CENTER_ALIGNMENT);
                 ((JComponent) c).setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -212,7 +205,6 @@ public class AlbumPanel extends JPanel {
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
-                            System.out.println(line);
                             JLabel label = new JLabel(line);
                             panel.add((new JLabel(new ImageIcon(photo.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)))));
                             panel.add(label);
@@ -327,8 +319,6 @@ public class AlbumPanel extends JPanel {
             add.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println(album.getIndex(selectedPhoto));
-
                     if (textField.getText() == null) {
 
                     } else {
@@ -378,7 +368,7 @@ public class AlbumPanel extends JPanel {
                 jsonWriter.write(album);
                 jsonWriter.close();
             } catch (FileNotFoundException exception) {
-                //System.out.println("Unable to write to file: " + JSON_STORE);
+                //
             }
         }
 

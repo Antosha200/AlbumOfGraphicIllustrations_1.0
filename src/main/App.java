@@ -1,8 +1,8 @@
-import gui.view.MainController;
+import view.MainController;
 
 import javax.swing.*;
 
-public class Main {
+public class App {
     /**
      * Runs the photo album App
      */

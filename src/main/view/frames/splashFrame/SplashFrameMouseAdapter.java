@@ -1,4 +1,4 @@
-package gui.view.frames.splashFrame;
+package view.frames.splashFrame;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;

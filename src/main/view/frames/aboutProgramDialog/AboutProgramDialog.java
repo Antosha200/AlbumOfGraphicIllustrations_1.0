@@ -1,4 +1,4 @@
-package gui.view.frames.aboutProgramDialog;
+package view.frames.aboutProgramDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,11 +25,11 @@ public class AboutProgramDialog extends JDialog {
         constraints = new GridBagConstraints();
         setLayout(new GridBagLayout());
 
-        addProgramNameLabel();
-        //addPictureLabel();
-        //addInfoLabel();
-        //addVersionLabel();
+        addPictureLabel();
+        addInfoLabel();
+        addVersionLabel();
         addBackButton();
+        addProgramNameLabel();
 
         getRootPane().setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         getContentPane().setBackground(Color.WHITE);
@@ -71,7 +71,12 @@ public class AboutProgramDialog extends JDialog {
     }
 
     private void addInfoLabel() {
-        JLabel infoLabel = new JLabel("<html>Program allows:<br>");
+        JLabel infoLabel = new JLabel("<html>Program allows:<br>" +
+        "1) to add and delete your photos to the album<br>" +
+                "2) to add delete and edit captions to them<br>" +
+                "3) to view albums both ways<br>" +
+                "4) to save and store the album along with the captions<br>" +
+                "5) to upload and edit the album<br></html>");
         infoLabel.setFont(new Font("Arial", Font.BOLD, 18));
         infoLabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         constraints.gridx = 1;
@@ -82,7 +87,7 @@ public class AboutProgramDialog extends JDialog {
     }
 
     private void addVersionLabel() {
-        JLabel versionLabel = new JLabel("Version 1.0.0.2021");
+        JLabel versionLabel = new JLabel("Version 1.0.0.2022");
         versionLabel.setFont(new Font("Arial", Font.BOLD, 15));
         versionLabel.setHorizontalAlignment(JLabel.CENTER);
         constraints.gridx = 1;

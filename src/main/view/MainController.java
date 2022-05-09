@@ -1,7 +1,7 @@
-package gui.view;
+package view;
 
-import gui.view.frames.mainFrame.MainFrameThread;
-import gui.view.frames.splashFrame.SplashFrameThread;
+import view.frames.mainFrame.MainFrameThread;
+import view.frames.splashFrame.SplashFrameThread;
 
 /**
  * Class which controls creating {@link MainFrameThread} and {@link SplashFrameThread}

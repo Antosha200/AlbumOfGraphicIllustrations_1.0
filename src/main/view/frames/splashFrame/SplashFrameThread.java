@@ -1,4 +1,4 @@
-package gui.view.frames.splashFrame;
+package view.frames.splashFrame;
 
 /**
  * {@link SplashFrameThread} is an extension of {@link Thread}
