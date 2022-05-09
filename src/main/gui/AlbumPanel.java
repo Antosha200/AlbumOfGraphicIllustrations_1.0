@@ -15,7 +15,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class AlbumPanel extends JPanel {
 
@@ -147,13 +146,14 @@ public class AlbumPanel extends JPanel {
             JButton btnSave = getBtnSave();
             JButton btnLoad = getBtnLoad();
             JButton btnDesc = getBtnDescription();
+            JButton btnDeleteDesc = getBtnDeleteDesc();
             JButton btnShow = getBtnShowAllPhoto();
 
             //Add the infoPanel label
             infoPanel.add(infoLabel);
 
             //Add the components to the panel
-            addComponents(btnRemove, btnAdd, btnNext, btnPrev, btnSize, btnSave, btnLoad, btnDesc, btnShow);
+            addComponents(btnRemove, btnAdd, btnNext, btnPrev, btnSize, btnSave, btnLoad, btnDesc, btnDeleteDesc, btnShow);
 
 
             // Center everything in the infoPanel
@@ -173,7 +173,7 @@ public class AlbumPanel extends JPanel {
         private void addComponents(JButton btnRemove, JButton btnAdd,
                                    JButton btnNext, JButton btnPrev,
                                    JButton btnSize, JButton btnSave,
-                                   JButton btnLoad, JButton btnDesc, JButton btnShow) {
+                                   JButton btnLoad, JButton btnDesc, JButton btnDeleteDesc, JButton btnShow) {
 
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
@@ -186,6 +186,7 @@ public class AlbumPanel extends JPanel {
             infoPanel.add(btnSave);
             infoPanel.add(btnLoad);
             infoPanel.add(btnDesc);
+            infoPanel.add(btnDeleteDesc);
             infoPanel.add(btnShow);
         }
 
@@ -199,8 +200,8 @@ public class AlbumPanel extends JPanel {
                     JPanel panel = new JPanel();
                     frame.setVisible(true);
                     frame.setSize(1200, 300);
-                    String line = "";
                     for (int i = 0; i < photos.size(); i++) {
+                        String line = "";
                         if (photos.get(i) != null) {
                             Photo photo = photos.get(i);
                             String fileName = ("photos/descriptions/"+ photo.getName() + ".txt");
@@ -222,9 +223,46 @@ public class AlbumPanel extends JPanel {
                     frame.add(scrollPane);
                 }
             });
-
-
             return btnShowAllPhoto;
+        }
+
+        private JButton getBtnDeleteDesc(){
+            JButton button = new JButton("Delete description");
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFrame frame = new JFrame("Confirmation");
+                    frame.setVisible(true);
+                    JButton yes = new JButton("Yes");
+                    JButton no = new JButton("No");
+                    JPanel panel = new JPanel();
+                    JLabel text = new JLabel("Are you sure?");
+                    panel.add(text);
+                    panel.add(yes);
+                    panel.add(no);
+                    frame.add(panel);
+                    frame.setSize(300,150);
+                    frame.setLocationRelativeTo(null);
+
+                    yes.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            File file = new File("photos/descriptions/"+ displayedPhoto.getName() + ".txt");
+                            file.delete();
+                            frame.setVisible(false);
+                        }
+                    });
+
+                    no.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            frame.setVisible(false);
+                        }
+                    });
+
+                }
+            });
+            return button;
         }
 
         /**
@@ -269,6 +307,7 @@ public class AlbumPanel extends JPanel {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    textField.setText("");
                     frame.setVisible(true);
                     panel.add(textField);
                     panel.add(add);
