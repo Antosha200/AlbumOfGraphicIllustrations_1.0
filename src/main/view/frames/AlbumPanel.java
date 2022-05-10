@@ -216,8 +216,8 @@ public class AlbumPanel extends JPanel {
          * Deletes caption
          */
         private JButton getBtnDeleteDesc() {
-            JButton button = new JButton("Delete description");
-            button.addActionListener(new ActionListener() {
+            JButton deleteButton = new JButton("Delete description");
+            deleteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFrame frame = new JFrame("Confirmation");
@@ -251,7 +251,7 @@ public class AlbumPanel extends JPanel {
 
                 }
             });
-            return button;
+            return deleteButton;
         }
 
         /**
@@ -288,14 +288,14 @@ public class AlbumPanel extends JPanel {
          * Adds caption to displayed photo
          */
         private JButton getBtnDescription() {
-            JButton button = new JButton("Add Description");
+            JButton addDescription = new JButton("Add Description");
             JFrame frame = new JFrame("Photo Description");
             JPanel panel = new JPanel();
             JButton add = new JButton("Add");
             JButton cancel = new JButton("Cancel");
             JTextField textField = new JTextField(30);
 
-            button.addActionListener(new ActionListener() {
+            addDescription.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     textField.setText("");
@@ -341,7 +341,7 @@ public class AlbumPanel extends JPanel {
                     }
                 }
             });
-            return button;
+            return addDescription;
         }
 
         /**
