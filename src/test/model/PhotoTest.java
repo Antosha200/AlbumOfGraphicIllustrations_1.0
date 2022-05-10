@@ -64,19 +64,6 @@ public class PhotoTest {
         assertEquals(1967772824, p9.hashCode());
     }
 
-    @Test
-    void testLoadIOExceptionNotExpected() {
-        //not expecting an IOException
-        Photo apple = new Photo("apple");
-
-        assertNotNull(apple);
-        try {
-            apple.loadPhoto();
-        } catch (IOException e) {
-            fail("Exception not expected");
-        }
-        assertEquals(apple.getImage(), apple.getImage());
-    }
 
     @Test
     void testLoadIOExceptionExpected() {
@@ -96,15 +83,6 @@ public class PhotoTest {
         assertEquals("Photo(" + p1.getName() + ")", p1.toString());
 
     }
-
-    //    @Test
-//    void testToJson() {
-//        JSONObject json = new JSONObject();
-//        String name = new String();
-//
-//        json.put("Apples", name);
-//        assertEquals(json, p1.toJson());
-//    }
 }
 
 
